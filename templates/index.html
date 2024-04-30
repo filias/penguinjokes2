@@ -5,10 +5,37 @@
 <body class="dark:bg-slate-800 w-screen h-screen flex flex-col items-center justify-center gap-4">
 
     <script>
-        function toggleMenu() {
-            document.getElementById('supertab-button').style.display = 'none';
-            document.getElementById('joke-button').style.display = 'block';
+        var jokeCounter = 0;
+
+        function hideSupertabButton() {
+            console.log("Hide supertab button")
+            document.getElementById('supertab-button').classList.add("hidden");
         }
+        function showSupertabButton() {
+            console.log("Show supertab button")
+            document.getElementById('supertab-button').classList.remove("hidden");
+        }
+        function hideJokeButton() {
+            console.log("Hide joke button")
+            document.getElementById('joke-button').classList.add("hidden");
+        }
+        function showJokeButton() {
+            console.log("Show joke button")
+            document.getElementById('joke-button').classList.remove("hidden");
+        }
+        function countJokes() {
+            console.log("Joke counter: " + jokeCounter)
+            if (jokeCounter < 5) {
+                hideSupertabButton();
+                showJokeButton();
+                jokeCounter++;
+            } else {
+                showSupertabButton();
+                hideJokeButton();
+            }
+            console.log("Joke counter: " + jokeCounter)
+        }
+
     </script>
 
     <script type="module">
@@ -20,17 +47,24 @@
         merchantLogoUrl: "https://filipa.pythonanywhere.com/static/img/thinking.svg",
         offeringId: "offering.0af943fa-3655-4058-83f4-a05efb351a5e", // optional
         onPurchaseCompleted: () => {
-          //insert your code to grant user access
           console.log("Purchase completed!");
-          toggleMenu();
+          jokeCounter = 0;
+          hideSupertabButton();
+          showJokeButton();
         },
         onPurchaseCanceled: () => {
           //insert your code to handle when purchase is not completed
           console.log("Purchase canceled!");
+          jokeCounter = 0;
+          hideSupertabButton();
+          showJokeButton();
         },
         onError: () => {
           //insert your code to handle an unexpected error
           console.log("Purchase error!");
+          jokeCounter = 0;
+          hideSupertabButton();
+          showJokeButton();
         },
       });
     </script>
