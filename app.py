@@ -1,6 +1,7 @@
-from flask import Flask, request, redirect, session, render_template
+from flask import Flask, render_template, request
 from dotenv import load_dotenv
 
+from logic import get_joke
 
 load_dotenv()
 
@@ -8,11 +9,15 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    if request.headers.get("Hx-Request"):
+        template = "joke.html"
+    else:
+        template = "index.html"
 
-@app.route("/test")
-def test():
-    return render_template("test.html")
+    context = {}
+    context["question"], context["answer"] = get_joke()
+
+    return render_template(template, **context)
 
 
 if __name__ == "__main__":
