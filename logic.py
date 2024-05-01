@@ -1,8 +1,9 @@
+import os
 import re
 
 import requests
 
-from conf import settings
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 
 def get_joke():
@@ -26,7 +27,7 @@ def explain_joke(joke: str):
     url = "https://api.openai.com/v1/completions"
     headers = {
         "Content-Type": "application/json",
-        "Authorization": f"Bearer {settings.openai_api_key}"
+        "Authorization": f"Bearer {OPENAI_API_KEY}"
     }
 
     data = {
