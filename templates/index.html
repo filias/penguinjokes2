@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block content %}
 
@@ -9,28 +9,38 @@
 
         function hideSupertabButton() {
             console.log("Hide supertab button")
-            document.getElementById('supertab-button').classList.add("hidden");
+            document.getElementById("supertab-button").classList.add("hidden");
         }
         function showSupertabButton() {
             console.log("Show supertab button")
-            document.getElementById('supertab-button').classList.remove("hidden");
+            document.getElementById("supertab-button").classList.remove("hidden");
         }
         function hideJokeButton() {
             console.log("Hide joke button")
-            document.getElementById('joke-button').classList.add("hidden");
+            document.getElementById("joke-button").classList.add("hidden");
         }
         function showJokeButton() {
             console.log("Show joke button")
-            document.getElementById('joke-button').classList.remove("hidden");
+            document.getElementById("joke-button").classList.remove("hidden");
+        }
+        function toggleLogo() {
+            console.log("Swap logo")
+            logo = document.getElementById("joke-logo")
+            if (logo.src.includes("happy")) {
+                logo.src = "static/img/thinking.svg"
+            } else {
+                logo.src = "static/img/happy.svg"
+            }
         }
         function swapJoke(question, answer) {
             console.log("Swap joke")
-            document.getElementById('joke-question').innerText = question;
-            document.getElementById('joke-answer').innerText = answer;
+            document.getElementById("joke-question").innerText = question;
+            document.getElementById("joke-answer").innerText = answer;
         }
         async function countJokes() {
             var joke = await getJoke();
             var [question, answer] = await splitJoke(joke);
+            toggleLogo();
             swapJoke(question, answer);
 
             console.log("Joke counter: " + jokeCounter)
@@ -50,8 +60,8 @@
                 headers: {
                     "Accept": "application/json",
                     "User-Agent": "python-requests/2.31.0",
-                    'Accept-Encoding': 'gzip, deflate',
-                    'Connection': 'keep-alive',
+                    "Accept-Encoding": "gzip, deflate",
+                    "Connection": "keep-alive",
                 }
             });
             console.log(response);
@@ -69,9 +79,9 @@
             }
 
             // split the joke into question and answer
-            var parts = joke.split(/(\?)/); // Split the string at the '?', including '?' in the resulting array
+            var parts = joke.split(/(\?)/); // Split the string at the "?", including "?" in the resulting array
 
-            var question = parts.slice(0, parts.length - 1).join(''); // Join all parts except the last one to form the question
+            var question = parts.slice(0, parts.length - 1).join(""); // Join all parts except the last one to form the question
             var answer = parts[parts.length - 1]; // The last part is the answer
 
             console.log("Question: " + question + " Answer: " + answer);
@@ -111,7 +121,7 @@
     </script>
 
     <!-- include the joke fragment -->
-    {% include 'joke.html' %}
+    {% include "joke.html" %}
 </body>
 </html>
 {% endblock %}

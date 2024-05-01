@@ -2,14 +2,9 @@
     id="joke"
     class="flex max-w-sm p-mx-auto bg-white rounded-xl shadow-lg p-2 md:px-6 md:py-4 gap-4 relative"
   >
-    <img 
-      class="w-20 md:absolute md:left-[-50px] md:top-[-50px]" 
-      src="{{ url_for('static', filename='img/happy.svg') }}"
-    >
-
-    <img 
-      class="w-20 md:absolute md:left-[-50px] md:top-[-50px]" 
-      src="{{ url_for('static', filename='img/thinking.svg') }}"
+    <img id="joke-logo"
+      class="w-20 md:absolute md:left-[-50px] md:top-[-50px]"
+      src="{{ url_for("static", filename="img/happy.svg") }}"
     >
 
     <div class="text-xl font-medium text-black bg-red">
