@@ -1,44 +1,44 @@
-<div
-    id="joke"
-    class="flex max-w-sm p-mx-auto bg-white rounded-xl shadow-lg p-2 md:px-6 md:py-4 gap-4 relative"
-  >
-    <img id="joke-logo-thinking"
-      class="w-20 md:absolute md:left-[-50px] md:top-[-50px]"
-      src="{{ url_for("static", filename="img/thinking.svg") }}"
-    >
+<div id="joke" class="flex max-w-sm p-mx-auto bg-white rounded-xl shadow-lg p-2 md:px-6 md:py-4 gap-4 relative">
+  <img id="joke-logo-thinking" class="w-20 md:absolute md:left-[-50px] md:top-[-50px]"
+    src="{{ url_for('static', filename='img/thinking.svg' ) }}">
 
-    <div class="text-xl font-medium text-black bg-red">
-      <div id="joke-question">{{ question }}</div>
-      <div id="joke-answer" class="text-slate-500 answer mt-5">{{ answer }}</div>
-    </div>
+  <div class="text-xl font-medium text-black bg-red">
+    <div id="joke-question">{{ question }}</div>
+    <div id="joke-answer" class="text-slate-500 answer mt-5">{{ answer }}</div>
+  </div>
 
 </div>
 
-<div id="supertab-button" class="hidden"></div>
+<div id="supertab-button" class="hidden">
+  <p>Want more jokes? Get a bundle of 5 for $0.25</p>
+  <span class="small-text">Only pay when your Tab reaches $5.00.</span>
+</div>
 
-<div id="joke-button">
-    <button onclick="countJokes()"
-        class="px-4 py-2 bg-slate-200 rounded-full shadow-lg max-w-sm mx-auto flex space-x-12 text-2xl hover:bg-blue-200">
-        Laugh again!
+
+<div class="flex justify-center space-x-4">
+  <div id="joke-button">
+    <button onclick="countJokes()" class="px-4 py-2 bg-slate-200 rounded-full shadow-lg text-2xl hover:bg-blue-200">
+      Laugh again!
     </button>
-</div>
+  </div>
 
-<div id="explanation-button">
+  <div id="explain-button">
     <button onclick="showExplanation()"
-        class="px-4 py-2 bg-slate-200 rounded-full shadow-lg max-w-sm mx-auto flex space-x-12 text-2xl hover:bg-green-300">
-        Explain
+      class="px-4 py-2 bg-slate-200 rounded-full shadow-lg text-2xl hover:bg-green-300">
+      Explain this!
     </button>
+  </div>
 </div>
+
+
 
 <div id="joke-explanation"
-     class="flex max-w-sm p-mx-auto bg-white rounded-xl shadow-lg p-2 md:px-6 md:py-4 gap-4 relative hidden">
+  class="flex max-w-sm p-mx-auto bg-white rounded-xl shadow-lg p-2 md:px-6 md:py-4 gap-4 relative hidden">
 
-    <img id="joke-logo-happy"
-      class="w-20 md:absolute md:left-[-50px] md:top-[-50px]"
-      src="{{ url_for("static", filename="img/happy.svg") }}"
-    >
+  <img id="joke-logo-happy" class="w-20 md:absolute md:left-[-50px] md:top-[-50px]"
+    src="{{ url_for('static',filename='img/happy.svg' ) }}">
 
-    <div class="text-xl font-medium text-black bg-red">
-      <div id="explanation">{{ explanation }}</div>
-    </div>
+  <div class="text-xl font-medium text-black bg-red">
+    <div id="explanation">{{ explanation }}</div>
+  </div>
 </div>
