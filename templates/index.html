@@ -23,6 +23,14 @@
             console.log("Show joke button")
             document.getElementById("joke-button").classList.remove("hidden");
         }
+        function hideExplanationButton() {
+            console.log("Hide explanation button")
+            document.getElementById("explanation-button").classList.add("hidden");
+        }
+        function showExplanationButton() {
+            console.log("Hide explanation button")
+            document.getElementById("explanation-button").classList.add("hidden");
+        }
         function hideExplanation() {
             console.log("Hide explanation")
             document.getElementById("joke-explanation").classList.add("hidden");
@@ -58,10 +66,12 @@
             if (jokeCounter < 5) {
                 hideSupertabButton();
                 showJokeButton();
+                showExplanationButton();
                 jokeCounter++;
             } else {
                 showSupertabButton();
                 hideJokeButton();
+                hideExplanationButton()
             }
             console.log("Joke counter: " + jokeCounter);
         }
@@ -123,20 +133,15 @@
           jokeCounter = 0;
           hideSupertabButton();
           showJokeButton();
+          showExplanationButton();
         },
         onPurchaseCanceled: () => {
           //insert your code to handle when purchase is not completed
           console.log("Purchase canceled!");
-          jokeCounter = 0;
-          hideSupertabButton();
-          showJokeButton();
         },
         onError: () => {
           //insert your code to handle an unexpected error
           console.log("Purchase error!");
-          jokeCounter = 0;
-          hideSupertabButton();
-          showJokeButton();
         },
       });
     </script>
