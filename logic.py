@@ -2,6 +2,8 @@ import re
 
 import requests
 
+from conf import settings
+
 
 def get_joke():
     response = requests.get(
@@ -18,3 +20,21 @@ def get_joke():
     question, answer = re.split(r"(?<=\?)", joke)
 
     return question, answer
+
+
+def explain_joke(joke: str):
+    url = "https://api.openai.com/v1/completions"
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {settings.openai_api_key}"
+    }
+
+    data = {
+        "model": "gpt-3.5-turbo-instruct",
+        "prompt": f"Explain the joke: {joke}",
+        "max_tokens": 100,
+        "temperature": 0.5
+    }
+
+    response = requests.post(url, headers=headers, json=data)
+    return response.json()

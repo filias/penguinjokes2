@@ -23,6 +23,10 @@
             console.log("Show joke button")
             document.getElementById("joke-button").classList.remove("hidden");
         }
+        function showExplanation() {
+            console.log("Show explanation")
+            document.getElementById("joke-explanation").classList.remove("hidden");
+        }
         function toggleLogo() {
             console.log("Swap logo")
             logo = document.getElementById("joke-logo")
@@ -39,6 +43,8 @@
         }
         async function countJokes() {
             var joke = await getJoke();
+            var explanation = await explainJoke(joke);
+            document.getElementById("joke-explanation").innerText = explanation;
             var [question, answer] = await splitJoke(joke);
             toggleLogo();
             swapJoke(question, answer);
@@ -68,7 +74,7 @@
             const data = await response.json();
             console.log(data);
             return data["joke"];
-        };
+        }
 
         async function splitJoke(joke) {
             // if the joke does not have a punch line try it again and again
@@ -86,6 +92,15 @@
 
             console.log("Question: " + question + " Answer: " + answer);
             return [question, answer];
+        }
+
+        async function explainJoke(joke) {
+            console.log("Explain joke: " + joke);
+            var url = "http://localhost:5000/explain?joke=" + joke;
+            const response = await fetch(url);
+            const data = await response.json();
+            console.log(data);
+            return data["choices"][0]["text"];
         }
     </script>
 
