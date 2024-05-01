@@ -101,7 +101,8 @@
 
         async function explainJoke(joke) {
             console.log("Explain joke: " + joke);
-            var url = "https://www.penguinjokes.lol/explain?joke=" + joke;
+            var url = "{{ api_url }}" + "/explain?joke=" + joke;
+            console.log("URL: " + url);
             const response = await fetch(url);
             const data = await response.json();
             console.log(data);

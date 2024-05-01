@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, render_template, request
 from dotenv import load_dotenv
 
@@ -17,6 +19,7 @@ def index():
 
     context = {}
     context["question"], context["answer"] = get_joke()
+    context["api_url"] = os.getenv("API_URL")
 
     explanation = explain_joke(context["question"] + context["answer"])
     if "choices" in explanation:
