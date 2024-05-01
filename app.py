@@ -19,7 +19,10 @@ def index():
     context["question"], context["answer"] = get_joke()
 
     explanation = explain_joke(context["question"] + context["answer"])
-    context["explanation"] = explanation["choices"][0]["text"]
+    if "choices" in explanation:
+        context["explanation"] = explanation["choices"][0]["text"]
+    else:
+        context["explanation"] = "Sorry, I don't know the answer."
     return render_template(template, **context)
 
 

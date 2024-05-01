@@ -23,6 +23,10 @@
             console.log("Show joke button")
             document.getElementById("joke-button").classList.remove("hidden");
         }
+        function hideExplanation() {
+            console.log("Hide explanation")
+            document.getElementById("joke-explanation").classList.add("hidden");
+        }
         function showExplanation() {
             console.log("Show explanation")
             document.getElementById("joke-explanation").classList.remove("hidden");
@@ -42,6 +46,7 @@
             document.getElementById("joke-answer").innerText = answer;
         }
         async function countJokes() {
+            hideExplanation();
             var joke = await getJoke();
             var explanation = await explainJoke(joke);
             document.getElementById("joke-explanation").innerText = explanation;
