@@ -23,6 +23,14 @@
             console.log("Show joke button")
             document.getElementById("joke-button").classList.remove("hidden");
         }
+        function hideJoke() {
+            console.log("Hide joke")
+            document.getElementById("joke").classList.add("hidden");
+        }
+        function showJoke() {
+            console.log("Show joke")
+            document.getElementById("joke").classList.remove("hidden");
+        }
         function hideExplanationButton() {
             console.log("Hide explanation button")
             document.getElementById("explanation-button").classList.add("hidden");
@@ -56,10 +64,12 @@
             if (jokeCounter < 5) {
                 hideSupertabButton();
                 showJokeButton();
+                showJoke();
                 showExplanationButton();
                 jokeCounter++;
             } else {
                 showSupertabButton();
+                hideJoke();
                 hideJokeButton();
                 hideExplanationButton()
             }
@@ -122,6 +132,7 @@
                 console.log("Purchase completed!");
                 jokeCounter = 0;
                 hideSupertabButton();
+                showJoke();
                 showJokeButton();
                 showExplanationButton();
             },
