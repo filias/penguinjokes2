@@ -39,15 +39,6 @@
             console.log("Show explanation")
             document.getElementById("joke-explanation").classList.remove("hidden");
         }
-        function toggleLogo() {
-            console.log("Swap logo")
-            logo = document.getElementById("joke-logo")
-            if (logo.src.includes("happy")) {
-                logo.src = "static/img/thinking.svg"
-            } else {
-                logo.src = "static/img/happy.svg"
-            }
-        }
         function swapJoke(question, answer) {
             console.log("Swap joke")
             document.getElementById("joke-question").innerText = question;
@@ -59,7 +50,6 @@
             var explanation = await explainJoke(joke);
             document.getElementById("joke-explanation").innerText = explanation;
             var [question, answer] = await splitJoke(joke);
-            toggleLogo();
             swapJoke(question, answer);
 
             console.log("Joke counter: " + jokeCounter)

@@ -4,7 +4,7 @@
   >
     <img id="joke-logo"
       class="w-20 md:absolute md:left-[-50px] md:top-[-50px]"
-      src="{{ url_for("static", filename="img/happy.svg") }}"
+      src="{{ url_for("static", filename="img/thinking.svg") }}"
     >
 
     <div class="text-xl font-medium text-black bg-red">
@@ -32,6 +32,12 @@
 
 <div id="joke-explanation"
      class="flex max-w-sm p-mx-auto bg-white rounded-xl shadow-lg p-2 md:px-6 md:py-4 gap-4 relative hidden">
+
+    <img id="joke-logo"
+      class="w-20 md:absolute md:left-[-50px] md:top-[-50px]"
+      src="{{ url_for("static", filename="img/happy.svg") }}"
+    >
+
     <div class="text-xl font-medium text-black bg-red">
       <div id="explanation">{{ explanation }}</div>
     </div>
