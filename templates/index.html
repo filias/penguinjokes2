@@ -48,7 +48,7 @@
             hideExplanation();
             var joke = await getJoke();
             var explanation = await explainJoke(joke);
-            document.getElementById("joke-explanation").innerText = explanation;
+            document.getElementById("explanation").innerText = explanation;
             var [question, answer] = await splitJoke(joke);
             swapJoke(question, answer);
 
