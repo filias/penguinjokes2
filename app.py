@@ -17,7 +17,9 @@ def index():
 
     context = {}
     context["question"], context["answer"] = get_joke()
-    context["explanation"] = explain_joke(context["question"] + context["answer"])["choices"][0]["text"]
+
+    explanation = explain_joke(context["question"] + context["answer"])
+    context["explanation"] = explanation.json()["choices"][0]["text"]
     return render_template(template, **context)
 
 
