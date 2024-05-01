@@ -23,9 +23,16 @@
             console.log("Show joke button")
             document.getElementById('joke-button').classList.remove("hidden");
         }
+        function swapJoke(question, answer) {
+            console.log("Swap joke")
+            document.getElementById('joke-question').innerText = question;
+            document.getElementById('joke-answer').innerText = answer;
+        }
         async function countJokes() {
             var joke = await getJoke();
-            splitJoke(joke);
+            var [question, answer] = await splitJoke(joke);
+            swapJoke(question, answer);
+
             console.log("Joke counter: " + jokeCounter)
             if (jokeCounter < 5) {
                 hideSupertabButton();
