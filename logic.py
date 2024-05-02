@@ -2,6 +2,7 @@ import os
 import random
 import re
 from pathlib import Path
+from typing import Tuple
 
 from openai import OpenAI
 import requests
@@ -9,7 +10,7 @@ import requests
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 
-def get_joke() -> tuple[str, str]:
+def get_joke() -> Tuple[str, str]:
     response = requests.get(
         "https://icanhazdadjoke.com/", headers={"Accept": "application/json"}
     )
