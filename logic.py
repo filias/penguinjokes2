@@ -9,7 +9,7 @@ import requests
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 
-def get_joke():
+def get_joke() -> tuple[str, str]:
     response = requests.get(
         "https://icanhazdadjoke.com/", headers={"Accept": "application/json"}
     )
@@ -26,7 +26,7 @@ def get_joke():
     return question, answer
 
 
-def explain_joke(joke: str):
+def explain_joke(joke: str) -> str:
     url = "https://api.openai.com/v1/completions"
     headers = {
         "Content-Type": "application/json",
@@ -51,7 +51,7 @@ def explain_joke(joke: str):
 VOICES = ["alloy", "echo", "fable", "onyx", "nova", "shimmer"]
 
 
-def read_joke(joke: str):
+def read_joke(joke: str) -> str:
     voice = random.choice(VOICES)
     speech_filepath = Path("static/audio/speech.mp3")
     client = OpenAI()
@@ -61,11 +61,11 @@ def read_joke(joke: str):
     return speech_filepath
 
 
-def draw_joke(joke: str):
+def draw_joke(joke: str) -> str:
     client = OpenAI()
     response = client.images.generate(
         model="dall-e-3", prompt=joke, size="1024x1024", quality="standard", n=1
     )
-    img_url = response.data[0].url
+    image_url = response.data[0].url
 
-    return img_url
+    return image_url

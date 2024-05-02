@@ -31,8 +31,8 @@ def index():
     context["audio_path"] = audio_path
 
     # Draw
-    img_url = draw_joke(joke)
-    context["img_url"] = img_url
+    image_url = draw_joke(joke)
+    context["image_url"] = image_url
 
     return render_template("index.html", **context)
 
@@ -49,10 +49,19 @@ def explain():
 @app.route("/read")
 def read():
     joke = request.args.get("joke")
-    print(f"Speech: {joke}")
+    print(f"Read: {joke}")
     audio_path = read_joke(joke)
     print(f"Audio path: {audio_path}")
     return {"audio_path": str(audio_path)}, 200
+
+
+@app.route("/draw")
+def draw():
+    joke = request.args.get("joke")
+    print(f"Draw: {joke}")
+    image_url = draw_joke(joke)
+    print(f"Image url: {image_url}")
+    return {"image_url": str(image_url)}, 200
 
 
 if __name__ == "__main__":

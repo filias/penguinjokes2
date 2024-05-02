@@ -1,5 +1,6 @@
-var jokeCounter = 0;  // We start with 5 to get to the tab button faster
+let jokeCounter = 0;  // We start with 5 to get to the tab button faster
 
+// Button behavior
 function hideSupertabButton() {
     console.log("Hide supertab button")
     document.getElementById("supertab-button").classList.add("hidden");
@@ -15,14 +16,6 @@ function hideJokeButton() {
 function showJokeButton() {
     console.log("Show joke button")
     document.getElementById("joke-button").classList.remove("hidden");
-}
-function hideJoke() {
-    console.log("Hide joke")
-    document.getElementById("joke").classList.add("hidden");
-}
-function showJoke() {
-    console.log("Show joke")
-    document.getElementById("joke").classList.remove("hidden");
 }
 function hideExplanationButton() {
     console.log("Hide explanation button")
@@ -48,6 +41,8 @@ function showImageButton() {
     console.log("Show image button")
     document.getElementById("draw-button").classList.remove("hidden");
 }
+
+// Joke behavior
 function hideExplanation() {
     console.log("Hide explanation")
     document.getElementById("joke-explanation").classList.add("hidden");
@@ -55,6 +50,14 @@ function hideExplanation() {
 function showExplanation() {
     console.log("Show explanation")
     document.getElementById("joke-explanation").classList.remove("hidden");
+}
+function hideJoke() {
+    console.log("Hide joke")
+    document.getElementById("joke").classList.add("hidden");
+}
+function showJoke() {
+    console.log("Show joke")
+    document.getElementById("joke").classList.remove("hidden");
 }
 function hideImage() {
     console.log("Hide image")
@@ -73,26 +76,32 @@ function playJoke() {
     console.log("Play joke")
     document.getElementById("joke-audio").play();
 }
+
+// Function called by the Laugh button
+// It counts jokes and fetches all additional things: audio, image, explanation
 async function countJokes() {
+    hideJoke()
     hideExplanation();
     hideImage();
 
     // Laugh
-    var joke = await getJoke();
-    var [question, answer] = await splitJoke(joke);
-    swapJoke(question, answer);
+    let joke = await getJoke();
+    let [question, answer] = await splitJoke(joke);
 
     // Explain
-    var explanation = await explainJoke(joke);
+    let explanation = await explainJoke(joke);
     document.getElementById("explanation").innerText = explanation;
 
     // Read
-    var audio_path = await readJoke(joke);
+    let audio_path = await readJoke(joke);
     document.getElementById("joke-audio").src = audio_path;
 
     // Draw
-    var image_path = await drawJoke(joke);
-    document.getElementById("image-explanation").src = image_path;
+    let image_url = await drawJoke(joke);
+    document.getElementById("joke-image").src = image_url;
+
+    // Swap joke
+    swapJoke(question, answer);
 
     // Count
     console.log("Joke counter: " + jokeCounter)
