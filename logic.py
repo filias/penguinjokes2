@@ -1,6 +1,9 @@
 import os
+import random
 import re
+from pathlib import Path
 
+from openai import OpenAI
 import requests
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
@@ -43,3 +46,20 @@ def explain_joke(joke: str):
     text = response.json()["choices"][0]["text"]
     text = text.strip()
     return text
+
+
+VOICES = ["alloy", "echo", "fable", "onyx", "nova", "shimmer"]
+
+
+def read_joke(joke: str):
+    voice = random.choice(VOICES)
+    speech_filepath = Path("static/audio/speech.mp3")
+    client = OpenAI()
+    response = client.audio.speech.create(
+        model="tts-1",
+        voice=voice,
+        input=joke
+    )
+    response.stream_to_file(speech_filepath)
+
+    return speech_filepath

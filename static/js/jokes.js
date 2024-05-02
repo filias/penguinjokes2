@@ -1,4 +1,4 @@
-var jokeCounter = 5;  // We start with 5 to get to the tab button faster
+var jokeCounter = 0;  // We start with 5 to get to the tab button faster
 
 function hideSupertabButton() {
     console.log("Hide supertab button")
@@ -32,6 +32,14 @@ function showExplanationButton() {
     console.log("Show explanation button")
     document.getElementById("explanation-button").classList.remove("hidden");
 }
+function hideReadButton() {
+    console.log("Hide read button")
+    document.getElementById("read-button").classList.add("hidden");
+}
+function showReadButton() {
+    console.log("Show read button")
+    document.getElementById("read-button").classList.remove("hidden");
+}
 function hideExplanation() {
     console.log("Hide explanation")
     document.getElementById("joke-explanation").classList.add("hidden");
@@ -45,26 +53,41 @@ function swapJoke(question, answer) {
     document.getElementById("joke-question").innerText = question;
     document.getElementById("joke-answer").innerText = answer;
 }
+function playJoke() {
+    console.log("Play joke")
+    document.getElementById("joke-audio").play();
+}
 async function countJokes() {
     hideExplanation();
+
+    // Laugh
     var joke = await getJoke();
-    var explanation = await explainJoke(joke);
-    document.getElementById("explanation").innerText = explanation;
     var [question, answer] = await splitJoke(joke);
     swapJoke(question, answer);
 
+    // Explain
+    var explanation = await explainJoke(joke);
+    document.getElementById("explanation").innerText = explanation;
+
+    // Read
+    var audio_path = await readJoke(joke);
+    document.getElementById("joke-audio").src = audio_path;
+
+    // Count
     console.log("Joke counter: " + jokeCounter)
     if (jokeCounter < 5) {
         hideSupertabButton();
         showJokeButton();
         showJoke();
         showExplanationButton();
+        showReadButton();
         jokeCounter++;
     } else {
         showSupertabButton();
         hideJoke();
         hideJokeButton();
-        hideExplanationButton()
+        hideExplanationButton();
+        hideReadButton();
     }
     console.log("Joke counter: " + jokeCounter);
 }

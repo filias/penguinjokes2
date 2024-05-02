@@ -19,14 +19,25 @@
     <div id="joke-button">
       <button onclick="countJokes()"
         class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-full shadow transition duration-200 ease-in-out hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-        Laugh again!
+        Laugh!
       </button>
     </div>
 
     <div id="explanation-button">
       <button onclick="showExplanation()"
         class="px-6 py-3 bg-green-500 text-white font-semibold rounded-full shadow transition duration-200 ease-in-out hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
-        Explain this!
+        Explain!
+      </button>
+    </div>
+
+    <div id="read-button">
+      <audio id="joke-audio" class="hidden">
+        <source src="{{ audio_path }}" type="audio/mp3">
+        Your browser does not support the audio element.
+      </audio>
+      <button onclick="playJoke()"
+        class="px-6 py-3 bg-red-500 text-white font-semibold rounded-full shadow transition duration-200 ease-in-out hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
+        Read!
       </button>
     </div>
   </div>
