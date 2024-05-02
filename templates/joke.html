@@ -19,14 +19,14 @@
     <div id="joke-button">
       <button onclick="countJokes()"
         class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-full shadow transition duration-200 ease-in-out hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-        Laugh!
+        Laugh
       </button>
     </div>
 
     <div id="explanation-button">
       <button onclick="showExplanation()"
         class="px-6 py-3 bg-green-500 text-white font-semibold rounded-full shadow transition duration-200 ease-in-out hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
-        Explain!
+        Explain
       </button>
     </div>
 
@@ -37,7 +37,14 @@
       </audio>
       <button onclick="playJoke()"
         class="px-6 py-3 bg-red-500 text-white font-semibold rounded-full shadow transition duration-200 ease-in-out hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
-        Read!
+        Read
+      </button>
+    </div>
+
+    <div id="draw-button">
+      <button onclick="showImage()"
+        class="px-6 py-3 bg-violet-500 text-white font-semibold rounded-full shadow transition duration-200 ease-in-out hover:bg-violet-600 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-opacity-50">
+        Draw
       </button>
     </div>
   </div>
@@ -49,4 +56,9 @@
       <div id="explanation">{{ explanation }}</div>
     </div>
   </div>
+
+  <div id="image-explanation" class="flex max-w-sm mx-auto bg-white rounded-xl shadow-lg p-6 gap-4 relative hidden">
+    <img src="{{ img_url }}" class="object-contain">
+  </div>
+</div>
 </div>

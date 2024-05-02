@@ -30,14 +30,14 @@ def explain_joke(joke: str):
     url = "https://api.openai.com/v1/completions"
     headers = {
         "Content-Type": "application/json",
-        "Authorization": f"Bearer {OPENAI_API_KEY}"
+        "Authorization": f"Bearer {OPENAI_API_KEY}",
     }
 
     data = {
         "model": "gpt-3.5-turbo-instruct",
         "prompt": f"Explain the joke: {joke}",
         "max_tokens": 100,
-        "temperature": 0.5
+        "temperature": 0.5,
     }
 
     response = requests.post(url, headers=headers, json=data)
@@ -55,11 +55,17 @@ def read_joke(joke: str):
     voice = random.choice(VOICES)
     speech_filepath = Path("static/audio/speech.mp3")
     client = OpenAI()
-    response = client.audio.speech.create(
-        model="tts-1",
-        voice=voice,
-        input=joke
-    )
+    response = client.audio.speech.create(model="tts-1", voice=voice, input=joke)
     response.stream_to_file(speech_filepath)
 
     return speech_filepath
+
+
+def draw_joke(joke: str):
+    client = OpenAI()
+    response = client.images.generate(
+        model="dall-e-3", prompt=joke, size="1024x1024", quality="standard", n=1
+    )
+    img_url = response.data[0].url
+
+    return img_url

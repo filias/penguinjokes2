@@ -40,6 +40,14 @@ function showReadButton() {
     console.log("Show read button")
     document.getElementById("read-button").classList.remove("hidden");
 }
+function hideImageButton() {
+    console.log("Hide image button")
+    document.getElementById("draw-button").classList.add("hidden");
+}
+function showImageButton() {
+    console.log("Show image button")
+    document.getElementById("draw-button").classList.remove("hidden");
+}
 function hideExplanation() {
     console.log("Hide explanation")
     document.getElementById("joke-explanation").classList.add("hidden");
@@ -47,6 +55,14 @@ function hideExplanation() {
 function showExplanation() {
     console.log("Show explanation")
     document.getElementById("joke-explanation").classList.remove("hidden");
+}
+function hideImage() {
+    console.log("Hide image")
+    document.getElementById("image-explanation").classList.add("hidden");
+}
+function showImage() {
+    console.log("Show image")
+    document.getElementById("image-explanation").classList.remove("hidden");
 }
 function swapJoke(question, answer) {
     console.log("Swap joke")
@@ -59,6 +75,7 @@ function playJoke() {
 }
 async function countJokes() {
     hideExplanation();
+    hideImage();
 
     // Laugh
     var joke = await getJoke();
@@ -73,6 +90,10 @@ async function countJokes() {
     var audio_path = await readJoke(joke);
     document.getElementById("joke-audio").src = audio_path;
 
+    // Draw
+    var image_path = await drawJoke(joke);
+    document.getElementById("image-explanation").src = image_path;
+
     // Count
     console.log("Joke counter: " + jokeCounter)
     if (jokeCounter < 5) {
@@ -80,6 +101,7 @@ async function countJokes() {
         showJokeButton();
         showJoke();
         showExplanationButton();
+        showImageButton();
         showReadButton();
         jokeCounter++;
     } else {
@@ -87,6 +109,7 @@ async function countJokes() {
         hideJoke();
         hideJokeButton();
         hideExplanationButton();
+        hideImageButton();
         hideReadButton();
     }
     console.log("Joke counter: " + jokeCounter);
