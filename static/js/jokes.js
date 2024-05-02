@@ -53,11 +53,13 @@ function showExplanation() {
 }
 function hideJoke() {
     console.log("Hide joke")
-    document.getElementById("joke").classList.add("hidden");
+    document.getElementById("joke-question").classList.add("hidden");
+    document.getElementById("joke-answer").classList.add("hidden");
 }
 function showJoke() {
     console.log("Show joke")
-    document.getElementById("joke").classList.remove("hidden");
+    document.getElementById("joke-question").classList.remove("hidden");
+    document.getElementById("joke-answer").classList.remove("hidden");
 }
 function hideImage() {
     console.log("Hide image")
