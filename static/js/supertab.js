@@ -8,10 +8,12 @@ window.supertab.createPurchaseButton({
     onPurchaseCompleted: () => {
         console.log("Purchase completed!");
         jokeCounter = 0;
-        hideSupertabButton();
         showJoke();
-        showJokeButton();
-        showExplanationButton();
+        hideButton("supertab-button");
+        showButton("joke-button");
+        showButton("explanation-button");
+        showButton("read-button");
+        showButton("draw-button");
     },
     onPurchaseCanceled: () => {
         //insert your code to handle when purchase is not completed

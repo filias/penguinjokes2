@@ -1,56 +1,17 @@
 let jokeCounter = 4;  // We start with 5 to get to the tab button faster
 
 // Button behavior
-function hideSupertabButton() {
-    console.log("Hide supertab button")
-    document.getElementById("supertab-button").classList.add("hidden");
+function hideButton(name) {
+    console.log("Hide " + name + " button");
+    document.getElementById(name).classList.add("hidden");
 }
-function showSupertabButton() {
-    console.log("Show supertab button")
-    document.getElementById("supertab-button").classList.remove("hidden");
-}
-function hideJokeButton() {
-    console.log("Hide joke button")
-    document.getElementById("joke-button").classList.add("hidden");
-}
-function showJokeButton() {
-    console.log("Show joke button")
-    document.getElementById("joke-button").classList.remove("hidden");
-}
-function hideExplanationButton() {
-    console.log("Hide explanation button")
-    document.getElementById("explanation-button").classList.add("hidden");
-}
-function showExplanationButton() {
-    console.log("Show explanation button")
-    document.getElementById("explanation-button").classList.remove("hidden");
-}
-function hideReadButton() {
-    console.log("Hide read button")
-    document.getElementById("read-button").classList.add("hidden");
-}
-function showReadButton() {
-    console.log("Show read button")
-    document.getElementById("read-button").classList.remove("hidden");
-}
-function hideImageButton() {
-    console.log("Hide image button")
-    document.getElementById("draw-button").classList.add("hidden");
-}
-function showImageButton() {
-    console.log("Show image button")
-    document.getElementById("draw-button").classList.remove("hidden");
+
+function showButton(name) {
+    console.log("Show " + name + " button");
+    document.getElementById(name).classList.remove("hidden");
 }
 
 // Joke behavior
-function hideExplanation() {
-    console.log("Hide explanation")
-    document.getElementById("joke-explanation").classList.add("hidden");
-}
-function showExplanation() {
-    console.log("Show explanation")
-    document.getElementById("joke-explanation").classList.remove("hidden");
-}
 function hideJoke() {
     console.log("Hide joke")
     document.getElementById("joke-question").classList.add("hidden");
@@ -60,6 +21,14 @@ function showJoke() {
     console.log("Show joke")
     document.getElementById("joke-question").classList.remove("hidden");
     document.getElementById("joke-answer").classList.remove("hidden");
+}
+function hideExplanation() {
+    console.log("Hide explanation")
+    document.getElementById("joke-explanation").classList.add("hidden");
+}
+function showExplanation() {
+    console.log("Show explanation")
+    document.getElementById("joke-explanation").classList.remove("hidden");
 }
 function hideImage() {
     console.log("Hide image")
@@ -108,20 +77,20 @@ async function countJokes() {
     // Count
     console.log("Joke counter: " + jokeCounter)
     if (jokeCounter < 5) {
-        hideSupertabButton();
-        showJokeButton();
         showJoke();
-        showExplanationButton();
-        showImageButton();
-        showReadButton();
+        hideButton("supertab-button");
+        showButton("joke-button");
+        showButton("explanation-button");
+        showButton("draw-button");
+        showButton("read-button");
         jokeCounter++;
     } else {
-        showSupertabButton();
         hideJoke();
-        hideJokeButton();
-        hideExplanationButton();
-        hideImageButton();
-        hideReadButton();
+        showButton("supertab-button");
+        hideButton("joke-button");
+        hideButton("explanation-button");
+        hideButton("draw-button");
+        hideButton("read-button")
     }
     console.log("Joke counter: " + jokeCounter);
 }
