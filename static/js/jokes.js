@@ -1,4 +1,4 @@
-let jokeCounter = 0;  // We start with 5 to get to the tab button faster
+let jokeCounter = 4;  // We start with 5 to get to the tab button faster
 
 // Button behavior
 function hideSupertabButton() {
@@ -142,16 +142,16 @@ async function getJoke() {
 async function splitJoke(joke) {
     // if the joke does not have a punch line try it again and again
     // the punch line is the part after the question mark
-    console.log(joke);
-    while (!joke.includes("?")) {
-        joke = await getJoke()
+    console.log("Split joke: " + joke);
+    if(!joke.includes("?")) {
+        question = joke;
+        answer = "";
+    } else {
+        // Split the joke into question and answer
+        let parts = joke.split(/(\?)/); // Split the string at the "?", including "?" in the resulting array
+        let question = parts.slice(0, parts.length - 1).join(""); // Join all parts except the last one to form the question
+        let answer = parts[parts.length - 1]; // The last part is the answer
     }
-
-    // split the joke into question and answer
-    var parts = joke.split(/(\?)/); // Split the string at the "?", including "?" in the resulting array
-
-    var question = parts.slice(0, parts.length - 1).join(""); // Join all parts except the last one to form the question
-    var answer = parts[parts.length - 1]; // The last part is the answer
 
     console.log("Question: " + question + " Answer: " + answer);
     return [question, answer];
