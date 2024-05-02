@@ -1,3 +1,4 @@
+import json
 import os
 
 from flask import Flask, render_template, request
@@ -22,8 +23,8 @@ def index():
     context["api_url"] = os.getenv("API_URL")
 
     explanation = explain_joke(context["question"] + context["answer"])
-    if "choices" in explanation:
-        context["explanation"] = explanation["choices"][0]["text"]
+    if explanation:
+        context["explanation"] = explanation
     else:
         context["explanation"] = "Sorry, I don't know the answer."
     return render_template(template, **context)
@@ -35,7 +36,7 @@ def explain():
     print(joke)
     explanation = explain_joke(joke)
     print(explanation)
-    return explanation
+    return {"text": explanation}, 200
 
 
 if __name__ == "__main__":

@@ -38,4 +38,8 @@ def explain_joke(joke: str):
     }
 
     response = requests.post(url, headers=headers, json=data)
-    return response.json()
+
+    # Get the text from the response and strip it
+    text = response.json()["choices"][0]["text"]
+    text = text.strip()
+    return text
