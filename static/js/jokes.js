@@ -145,14 +145,16 @@ async function splitJoke(joke) {
     // if the joke does not have a punch line try it again and again
     // the punch line is the part after the question mark
     console.log("Split joke: " + joke);
+    let question;
+    let answer;
     if(!joke.includes("?")) {
         question = joke;
         answer = "";
     } else {
         // Split the joke into question and answer
         let parts = joke.split(/(\?)/); // Split the string at the "?", including "?" in the resulting array
-        let question = parts.slice(0, parts.length - 1).join(""); // Join all parts except the last one to form the question
-        let answer = parts[parts.length - 1]; // The last part is the answer
+        question = parts.slice(0, parts.length - 1).join(""); // Join all parts except the last one to form the question
+        answer = parts[parts.length - 1]; // The last part is the answer
     }
 
     console.log("Question: " + question + " Answer: " + answer);
