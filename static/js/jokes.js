@@ -1,5 +1,14 @@
 let jokeCounter = 4;  // We start with 5 to get to the tab button faster
 
+function toggleById(id) {
+    console.log("Toggling " + id + " element");
+    var element = document.getElementById(id);
+    if (element.classList.contains("hidden")) {
+        element.classList.remove("hidden"); // shows the element
+    } else {
+        element.classList.add("hidden"); // hides the element
+    }
+}
 // Button behavior
 function hideButton(name) {
     console.log("Hide " + name + " button");
