@@ -7,13 +7,15 @@ from typing import Tuple
 from openai import OpenAI
 import requests
 
+from models import save_joke
+
 JOKES_API_URL = "https://icanhazdadjoke.com/"
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 VOICES = ["alloy", "echo", "fable", "onyx", "nova", "shimmer"]
 openai_client = OpenAI()
 
 
-def get_joke() -> Tuple[str, str]:
+def get_joke() -> Tuple[str, str, str]:
     response = requests.get(JOKES_API_URL, headers={"Accept": "application/json"})
     joke = response.json()["joke"]
 
@@ -22,10 +24,14 @@ def get_joke() -> Tuple[str, str]:
         question = joke
         answer = ""
     else:
-        # Split the joke into question and answer
+        # Split the joke into question and answer (including the ?)
         question, answer = re.split(r"(?<=\?)", joke)
+        answer = answer.strip()
 
-    return question, answer
+    # Save to db
+    joke_id = save_joke(question, answer)
+
+    return joke_id, question, answer
 
 
 def explain_joke(joke: str) -> str:

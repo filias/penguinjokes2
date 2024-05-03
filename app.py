@@ -15,16 +15,18 @@ def index():
     context = dict()
 
     # Laugh
-    context["question"], context["answer"] = get_joke()
-    joke = context["question"] + context["answer"]
+    joke_id, question, answer = get_joke()
+    joke = f"{question} {answer}"
+    context["joke_id"] = joke_id
+    context["question"] = question
+    context["answer"] = answer
     context["api_url"] = os.getenv("API_URL")
 
     # Explain
     explanation = explain_joke(joke)
-    if explanation:
-        context["explanation"] = explanation
-    else:
-        context["explanation"] = "Sorry, I don't know the answer."
+    context["explanation"] = (
+        explanation if explanation else "Sorry, I don't know the answer."
+    )
 
     # Read
     audio_path = read_joke(joke)
