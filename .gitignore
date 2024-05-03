@@ -160,3 +160,4 @@ cython_debug/
 #.idea/
 .jokes/
 .static/.DS_Store
+speech.mp3
