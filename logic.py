@@ -42,10 +42,17 @@ def explain_joke(joke: str) -> str:
 
 
 def read_joke(joke: str) -> str:
+    # Generate speech using OpenAI's API
     voice = random.choice(VOICES)
-    audio_path = Path("static/audio/speech.mp3")
     response = openai_client.audio.speech.create(model="tts-1", voice=voice, input=joke)
-    response.stream_to_file(audio_path)
+
+    # Ensure the path exists
+    audio_path = Path("static/audio/speech.mp3")
+    audio_path.parent.mkdir(parents=True, exist_ok=True)
+
+    # Write the response content directly to a file
+    with open(audio_path, "wb") as audio_file:
+        audio_file.write(response.content)
 
     return audio_path
 
