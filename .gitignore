@@ -161,3 +161,4 @@ cython_debug/
 .jokes/
 .static/.DS_Store
 speech.mp3
+.vscode/launch.json
