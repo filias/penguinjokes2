@@ -24,7 +24,7 @@
     </div>
 
     <div id="explanation-button">
-      <button onclick="toggleById('joke-explanation')"
+      <button onclick="toggleElementById('joke-explanation')"
         class="px-6 py-3 bg-green-500 text-white font-semibold rounded-full shadow transition duration-200 ease-in-out hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
         Explain
       </button>
@@ -35,14 +35,14 @@
         <source src="{{ audio_path }}" type="audio/mp3">
         Your browser does not support the audio element.
       </audio>
-      <button onclick="playJoke()"
+      <button onclick="playStopJoke()"
         class="px-6 py-3 bg-red-500 text-white font-semibold rounded-full shadow transition duration-200 ease-in-out hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
         Read
       </button>
     </div>
 
     <div id="draw-button">
-      <button onclick="toggleById('image-explanation')"
+      <button onclick="toggleElementById('image-explanation')"
         class="px-6 py-3 bg-violet-500 text-white font-semibold rounded-full shadow transition duration-200 ease-in-out hover:bg-violet-600 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-opacity-50">
         Draw
       </button>

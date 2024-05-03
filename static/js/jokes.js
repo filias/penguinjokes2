@@ -1,60 +1,74 @@
 let jokeCounter = 4;  // We start with 5 to get to the tab button faster
 
-function toggleById(id) {
-    console.log("Toggling " + id + " element");
-    var element = document.getElementById(id);
-    if (element.classList.contains("hidden")) {
-        element.classList.remove("hidden"); // shows the element
-    } else {
-        element.classList.add("hidden"); // hides the element
-    }
-}
-// Button behavior
-function hideButton(name) {
-    console.log("Hide " + name + " button");
+// Element behavior
+function hideElement(name) {
+    console.log("Hide " + name + " element");
     document.getElementById(name).classList.add("hidden");
 }
 
-function showButton(name) {
-    console.log("Show " + name + " button");
+function showElement(name) {
+    console.log("Show " + name + " element");
     document.getElementById(name).classList.remove("hidden");
+}
+
+function toggleElementById(id) {
+    console.log("Toggling " + id + " element");
+    let element = document.getElementById(id);
+    if (element.classList.contains("hidden")) {
+        showElement(id)
+    } else {
+        hideElement(id);
+    }
 }
 
 // Joke behavior
 function hideJoke() {
     console.log("Hide joke")
-    document.getElementById("joke-question").classList.add("hidden");
-    document.getElementById("joke-answer").classList.add("hidden");
+    hideElement("joke-question");
+    hideElement("joke-answer");
 }
+
 function showJoke() {
     console.log("Show joke")
-    document.getElementById("joke-question").classList.remove("hidden");
-    document.getElementById("joke-answer").classList.remove("hidden");
+    showElement("joke-question");
+    showElement("joke-answer");
 }
+
 function hideExplanation() {
     console.log("Hide explanation")
-    document.getElementById("joke-explanation").classList.add("hidden");
+    hideElement("joke-explanation")
 }
-function showExplanation() {
-    console.log("Show explanation")
-    document.getElementById("joke-explanation").classList.remove("hidden");
-}
+
 function hideImage() {
     console.log("Hide image")
-    document.getElementById("image-explanation").classList.add("hidden");
+    hideElement("image-explanation")
 }
-function showImage() {
-    console.log("Show image")
-    document.getElementById("image-explanation").classList.remove("hidden");
-}
+
 function swapJoke(question, answer) {
     console.log("Swap joke")
     document.getElementById("joke-question").innerText = question;
     document.getElementById("joke-answer").innerText = answer;
 }
-function playJoke() {
-    console.log("Play joke")
-    document.getElementById("joke-audio").play();
+
+function playStopJoke() {
+    audio = document.getElementById("joke-audio")
+    if (!audio.paused) {
+        console.log('Pause audio.');
+        audio.pause();
+    } else {
+        console.log('Play audio.');
+        audio.play();
+    }
+}
+
+function showLoadingScreen() {
+    console.log("Show loading screen");
+    document.getElementById('loadingScreen').style.display = 'flex';
+}
+
+function hideLoadingScreen() {
+    console.log("Hide loading screen");
+    document.getElementById('loadingScreen').style.display = 'none';
 }
 
 // Function called by the Laugh button
@@ -81,27 +95,27 @@ async function countJokes() {
     let image_url = await drawJoke(joke);
     document.getElementById("joke-image").src = image_url;
 
-
     // Swap joke
     swapJoke(question, answer);
     hideLoadingScreen();
+
     // Count
     console.log("Joke counter: " + jokeCounter)
     if (jokeCounter < 5) {
         showJoke();
-        hideButton("supertab-button");
-        showButton("joke-button");
-        showButton("explanation-button");
-        showButton("draw-button");
-        showButton("read-button");
+        hideElement("supertab-button");
+        showElement("joke-button");
+        showElement("explanation-button");
+        showElement("draw-button");
+        showElement("read-button");
         jokeCounter++;
     } else {
         hideJoke();
-        showButton("supertab-button");
-        hideButton("joke-button");
-        hideButton("explanation-button");
-        hideButton("draw-button");
-        hideButton("read-button")
+        showElement("supertab-button");
+        hideElement("joke-button");
+        hideElement("explanation-button");
+        hideElement("draw-button");
+        hideElement("read-button")
     }
     console.log("Joke counter: " + jokeCounter);
 }
@@ -139,14 +153,4 @@ async function splitJoke(joke) {
 
     console.log("Question: " + question + " Answer: " + answer);
     return [question, answer];
-}
-
-function showLoadingScreen() {
-    console.log("Show loading screen");
-    document.getElementById('loadingScreen').style.display = 'flex';
-}
-
-function hideLoadingScreen() {
-    console.log("Hide loading screen");
-    document.getElementById('loadingScreen').style.display = 'none';
 }
