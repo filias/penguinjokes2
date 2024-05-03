@@ -96,6 +96,7 @@ async function countJokes() {
 }
 
 async function getJoke() {
+    showLoadingScreen();
     const response = await fetch("https://icanhazdadjoke.com/", {
         headers: {
             "Accept": "application/json",
@@ -104,6 +105,7 @@ async function getJoke() {
             "Connection": "keep-alive",
         }
     });
+    hideLoadingScreen();
     console.log(response);
     const data = await response.json();
     console.log(data);
@@ -128,4 +130,14 @@ async function splitJoke(joke) {
 
     console.log("Question: " + question + " Answer: " + answer);
     return [question, answer];
+}
+
+function showLoadingScreen() {
+    console.log("Show loading screen");
+    document.getElementById('loadingScreen').style.display = 'flex';
+}
+
+function hideLoadingScreen() {
+    console.log("Hide loading screen");
+    document.getElementById('loadingScreen').style.display = 'none';
 }
