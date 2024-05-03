@@ -60,6 +60,7 @@ async function countJokes() {
     let [question, answer] = await splitJoke(joke);
 
     // Explain
+    showLoadingScreen();
     let explanation = await explainJoke(joke);
     document.getElementById("explanation").innerText = explanation;
 
@@ -71,9 +72,10 @@ async function countJokes() {
     let image_url = await drawJoke(joke);
     document.getElementById("joke-image").src = image_url;
 
+
     // Swap joke
     swapJoke(question, answer);
-
+    hideLoadingScreen();
     // Count
     console.log("Joke counter: " + jokeCounter)
     if (jokeCounter < 5) {
@@ -96,7 +98,6 @@ async function countJokes() {
 }
 
 async function getJoke() {
-    showLoadingScreen();
     const response = await fetch("https://icanhazdadjoke.com/", {
         headers: {
             "Accept": "application/json",
@@ -105,7 +106,6 @@ async function getJoke() {
             "Connection": "keep-alive",
         }
     });
-    hideLoadingScreen();
     console.log(response);
     const data = await response.json();
     console.log(data);
@@ -118,7 +118,7 @@ async function splitJoke(joke) {
     console.log("Split joke: " + joke);
     let question;
     let answer;
-    if(!joke.includes("?")) {
+    if (!joke.includes("?")) {
         question = joke;
         answer = "";
     } else {
