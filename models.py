@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 from uuid import uuid4
 
 from sqlmodel import Field, Session, SQLModel, create_engine, select
@@ -13,8 +14,8 @@ class Joke(SQLModel, table=True):
 
     id: str = Field(default=str(uuid4()), primary_key=True)
     question: str = Field(index=True, nullable=False, unique=True)
-    answer: str | None = None
-    image: str | None = None
+    answer: Optional[str] = None
+    image: Optional[str] = None
 
 
 def save_joke(question: str, answer: str) -> str:
