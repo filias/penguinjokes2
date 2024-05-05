@@ -30,11 +30,11 @@ def save_joke(question: str, answer: str) -> str:
         results = session.exec(statement)
         joke = results.first()
         if joke:
-            joke_id = joke.id
+            return joke.id
         else:  # Save the joke to the database
-            joke = Joke(question=question, answer=answer)
-            joke_id = joke.id
-            session.add(joke)
+            joke_id = str(uuid4())
+            new_joke = Joke(id=joke_id, question=question, answer=answer)
+            session.add(new_joke)
             session.commit()
 
     return joke_id
