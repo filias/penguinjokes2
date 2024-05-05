@@ -16,6 +16,7 @@ openai_client = OpenAI()
 
 
 def get_joke(use_db: bool = False) -> Tuple[str, str, str]:
+    print(f"Use db: {use_db}")
     if use_db:  # Get a joke from the database
         joke = get_random_joke()
         return joke.id, joke.question, joke.answer
