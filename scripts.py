@@ -18,3 +18,7 @@ def fetch_jokes(count: int = 10):
         image_url = draw_joke(f"{question} {answer}")
         update_joke_image(joke_id, image_url)
         print(f"Joke drawn: {image_url}")
+
+
+if __name__ == "__main__":
+    fetch_jokes()
