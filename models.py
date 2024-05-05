@@ -28,11 +28,11 @@ def save_joke(question: str, answer: str) -> str:
         statement = select(Joke).where(Joke.question == question)
         results = session.exec(statement)
         joke = results.first()
-        joke_id = joke.id
 
         # Save the joke to the database
         if not joke:
             joke = Joke(question=question, answer=answer)
+            joke_id = joke.id
             session.add(joke)
             session.commit()
 
