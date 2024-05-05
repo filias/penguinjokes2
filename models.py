@@ -2,6 +2,7 @@ import os
 from typing import Optional
 from uuid import uuid4
 
+from sqlalchemy import func
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 
 sqlite_filename = "jokes.db"
@@ -17,6 +18,21 @@ class Joke(SQLModel, table=True):
     answer: Optional[str] = None
     explanation: Optional[str] = None
     image: Optional[str] = None
+
+
+def get_random_joke() -> Joke:
+    with Session(engine) as session:
+        joke = session.exec(select(Joke).order_by(func.random())).first()
+
+    return joke
+
+
+def get_joke_by_id(joke_id: str) -> Joke:
+    with Session(engine) as session:
+        statement = select(Joke).where(Joke.id == joke_id)
+        results = session.exec(statement)
+        joke = results.first()
+        return joke
 
 
 def save_joke(question: str, answer: str) -> str:

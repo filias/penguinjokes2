@@ -7,7 +7,7 @@
     <script>
         async function explainJoke(joke) {
             console.log("Explain joke: " + joke);
-            var url = "{{ api_url }}" + "/explain?joke=" + joke;
+            var url = "{{ api_url }}" + "/explain?joke=" + joke + "&joke_id={{ joke_id }}";
             console.log("URL: " + url);
             const response = await fetch(url);
             const data = await response.json();
@@ -27,7 +27,7 @@
 
         async function drawJoke(joke) {
             console.log("Draw joke: " + joke);
-            var url = "{{ api_url }}" + "/draw?joke=" + joke;
+            var url = "{{ api_url }}" + "/draw?joke=" + joke + "&joke_id={{ joke_id }}";
             console.log("URL: " + url);
             const response = await fetch(url);
             const data = await response.json();

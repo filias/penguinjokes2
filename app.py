@@ -8,6 +8,7 @@ from logic import explain_joke, get_joke, read_joke, draw_joke
 load_dotenv()
 
 app = Flask(__name__)
+use_db = bool(os.getenv("USE_DB"))
 
 
 @app.route("/")
@@ -15,14 +16,15 @@ def index():
     context = dict()
 
     # Laugh
-    question, answer = get_joke()
+    joke_id, question, answer = get_joke(use_db=use_db)
     joke = f"{question} {answer}"
     context["question"] = question
     context["answer"] = answer
+    context["joke_id"] = joke_id
     context["api_url"] = os.getenv("API_URL")
 
     # Explain
-    explanation = explain_joke(joke)
+    explanation = explain_joke(joke, joke_id=joke_id)
     context["explanation"] = (
         explanation if explanation else "Sorry, I don't know the answer."
     )
@@ -32,7 +34,7 @@ def index():
     context["audio_path"] = audio_path
 
     # Draw
-    image_url = draw_joke(joke)
+    image_url = draw_joke(joke, joke_id=joke_id)
     context["image_url"] = image_url
 
     return render_template("index.html", **context)
@@ -41,8 +43,9 @@ def index():
 @app.route("/explain")
 def explain():
     joke = request.args.get("joke")
+    joke_id = request.args.get("joke_id")
     print(f"Explain: {joke}")
-    explanation = explain_joke(joke)
+    explanation = explain_joke(joke, joke_id=joke_id)
     print(f"Explanation: {explanation}")
     return {"text": explanation}, 200
 
@@ -59,8 +62,9 @@ def read():
 @app.route("/draw")
 def draw():
     joke = request.args.get("joke")
+    joke_id = request.args.get("joke_id")
     print(f"Draw: {joke}")
-    image_url = draw_joke(joke)
+    image_url = draw_joke(joke, joke_id=joke_id)
     print(f"Image url: {image_url}")
     return {"image_url": str(image_url)}, 200
 
