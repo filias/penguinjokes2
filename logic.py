@@ -15,7 +15,7 @@ VOICES = ["alloy", "echo", "fable", "onyx", "nova", "shimmer"]
 openai_client = OpenAI()
 
 
-def get_joke() -> Tuple[str, str, str]:
+def get_joke() -> Tuple[str, str]:
     response = requests.get(JOKES_API_URL, headers={"Accept": "application/json"})
     joke = response.json()["joke"]
 
@@ -28,10 +28,7 @@ def get_joke() -> Tuple[str, str, str]:
         question, answer = re.split(r"(?<=\?)", joke)
         answer = answer.strip()
 
-    # Save to db
-    joke_id = save_joke(question, answer)
-
-    return joke_id, question, answer
+    return question, answer
 
 
 def explain_joke(joke: str) -> str:

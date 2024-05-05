@@ -15,6 +15,7 @@ class Joke(SQLModel, table=True):
     id: str = Field(default=str(uuid4()), primary_key=True)
     question: str = Field(index=True, nullable=False, unique=True)
     answer: Optional[str] = None
+    explanation: Optional[str] = None
     image: Optional[str] = None
 
 
@@ -28,12 +29,32 @@ def save_joke(question: str, answer: str) -> str:
         statement = select(Joke).where(Joke.question == question)
         results = session.exec(statement)
         joke = results.first()
-
-        # Save the joke to the database
-        if not joke:
+        if joke:
+            joke_id = joke.id
+        else:  # Save the joke to the database
             joke = Joke(question=question, answer=answer)
             joke_id = joke.id
             session.add(joke)
             session.commit()
 
     return joke_id
+
+
+def update_joke_image(joked_id: str, image: str = None):
+    with Session(engine) as session:
+        statement = select(Joke).where(Joke.id == joked_id)
+        results = session.exec(statement)
+        joke = results.first()
+        joke.image = image
+        session.add(joke)
+        session.commit()
+
+
+def update_joke_explanation(joked_id: str, explanation: str = None):
+    with Session(engine) as session:
+        statement = select(Joke).where(Joke.id == joked_id)
+        results = session.exec(statement)
+        joke = results.first()
+        joke.explanation = explanation
+        session.add(joke)
+        session.commit()

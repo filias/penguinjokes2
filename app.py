@@ -15,9 +15,8 @@ def index():
     context = dict()
 
     # Laugh
-    joke_id, question, answer = get_joke()
+    question, answer = get_joke()
     joke = f"{question} {answer}"
-    context["joke_id"] = joke_id
     context["question"] = question
     context["answer"] = answer
     context["api_url"] = os.getenv("API_URL")
