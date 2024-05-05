@@ -18,7 +18,7 @@ openai_client = OpenAI()
 def get_joke(use_db: bool = False) -> Tuple[str, str, str]:
     if use_db:  # Get a joke from the database
         joke = get_random_joke()
-        return joke.question, joke.answer
+        return joke.id, joke.question, joke.answer
 
     else:  # Get a joke from the api
         response = requests.get(JOKES_API_URL, headers={"Accept": "application/json"})
