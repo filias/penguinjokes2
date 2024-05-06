@@ -75,12 +75,7 @@ def read_joke(joke: str) -> str:
 
 
 def draw_joke(joke: str, joke_id: str = None) -> str:
-    if joke_id:  # Get the explanation from the db
-        joke = get_joke_by_id(joke_id=joke_id)
-        if joke.image:
-            return joke.image
-
-    # There is no joke_id or no explanation in the db, we get it from the openai api
+    # Get image from the openai api
     response = openai_client.images.generate(
         model="dall-e-3", prompt=joke, size="1024x1024", quality="standard", n=1
     )
