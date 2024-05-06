@@ -1,4 +1,5 @@
 import os
+from urllib.parse import unquote
 
 from flask import Flask, render_template, request
 from dotenv import load_dotenv
@@ -42,7 +43,8 @@ def index():
 
 @app.route("/explain")
 def explain():
-    joke = request.args.get("joke")
+    encoded_joke = request.args.get("joke")
+    joke = unquote(encoded_joke)
     joke_id = request.args.get("joke_id")
     print(f"Explain: {joke}")
     explanation = explain_joke(joke, joke_id=joke_id)
@@ -52,7 +54,8 @@ def explain():
 
 @app.route("/read")
 def read():
-    joke = request.args.get("joke")
+    encoded_joke = request.args.get("joke")
+    joke = unquote(encoded_joke)
     print(f"Read: {joke}")
     audio_path = read_joke(joke)
     print(f"Audio path: {audio_path}")
@@ -61,7 +64,8 @@ def read():
 
 @app.route("/draw")
 def draw():
-    joke = request.args.get("joke")
+    encoded_joke = request.args.get("joke")
+    joke = unquote(encoded_joke)
     joke_id = request.args.get("joke_id")
     print(f"Draw: {joke}")
     image_url = draw_joke(joke, joke_id=joke_id)
