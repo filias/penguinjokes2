@@ -231,7 +231,7 @@ async function getImage() {
     console.log("Image src: " + image.src);
     console.log("Joke: " + joke.innerText)
 
-    if(joke && (image.src.contains("penguin") || image.src.contains("localhost"))) {
+    if(joke && (image.src.includes("penguin") || image.src.includes("localhost"))) {
         let image_url = await drawJoke(joke.innerText);
         image.src = image_url;
         console.log("Image url: " + image_url);
