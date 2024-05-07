@@ -167,6 +167,7 @@ async function countJokes2() {
     clearElement("joke-answer");
     clearElement("explanation");
     clearElementSrc("joke-image");
+    clearElementSrc("joke-audio");
 
     // Hide elements
     hideExplanation();
