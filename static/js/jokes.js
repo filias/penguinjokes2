@@ -1,4 +1,6 @@
-let jokeCounter = 4;  // We start with 5 to get to the tab button faster
+let jokeCounter = 0;  // For initial logic
+let jokesCount = 0;  // For logic 2
+localStorage.setItem("jokesCount", jokesCount);
 
 // Element behavior
 function hideElement(name) {
@@ -9,6 +11,17 @@ function hideElement(name) {
 function showElement(name) {
     console.log("Show " + name + " element");
     document.getElementById(name).classList.remove("hidden");
+}
+
+function clearElement(name) {
+    console.log("Clear " + name + " element");
+    document.getElementById(name).innerText = "";
+}
+
+function clearElementSrc(name) {
+    console.log("Clear " + name + " element");
+    document.getElementById(name).src = "";
+    console.log("Image src: " + document.getElementById(name).src);
 }
 
 function toggleElementById(id) {
@@ -118,6 +131,112 @@ async function countJokes() {
         hideElement("read-button")
     }
     console.log("Joke counter: " + jokeCounter);
+}
+
+
+// Function called by the Laugh button
+// It counts jokes, clears elements and fetches a new joke
+async function countJokes2() {
+    // Decide what to do with the counter
+    console.log("Jokes count: " + jokesCount)
+    if (jokesCount < 5) {
+        showJoke();
+        hideElement("supertab-button");
+        showElement("joke-button");
+        showElement("explanation-button");
+        showElement("draw-button");
+        showElement("read-button");
+        jokesCount = localStorage.getItem("jokesCount");
+        jokesCount ++;
+        localStorage.setItem("jokesCount", jokesCount);
+    } else {
+        hideJoke();
+        showElement("supertab-button");
+        hideElement("joke-button");
+        hideElement("explanation-button");
+        hideElement("draw-button");
+        hideElement("read-button");
+        jokesCount = 0;
+        localStorage.setItem("jokesCount", jokesCount);
+    }
+    console.log("Jokes count: " + jokesCount);
+
+    // Clear all current joke elements
+    clearElement("joke-full");
+    clearElement("joke-question");
+    clearElement("joke-answer");
+    clearElement("explanation");
+    clearElementSrc("joke-image");
+
+    // Hide elements
+    hideExplanation();
+    hideImage();
+
+    // showLoadingScreen();
+
+    // Get new joke
+    let joke = await getJoke2();
+    document.getElementById("joke-full").innerText = joke;
+    let [question, answer] = await splitJoke(joke);
+    swapJoke(question, answer);
+
+    // hideLoadingScreen();
+}
+
+
+// Function called by the Explain button
+// It shows the explanation of the joke
+async function getExplanation() {
+    console.log("Get explanation");
+    let joke = document.getElementById("joke-full");
+    let explanation = document.getElementById("explanation");
+    console.log("Explanation: " + explanation.innerText);
+
+    if(joke && explanation.innerText === "") {
+        let explanation_text = await explainJoke(joke.innerText);
+        explanation.innerText = explanation_text;
+        console.log("Explanation: " + explanation_text);
+    }
+
+    toggleElementById("joke-explanation");
+}
+
+
+async function getAudio() {
+    console.log("Get audio");
+    let joke = document.getElementById("joke-full");
+
+    if(joke) {
+        audio_src = await readJoke(joke.innerText);
+        console.log("Audio source: " + audio_src);
+        document.getElementById("joke-audio").src = audio_src;
+    }
+    audio = document.getElementById("joke-audio")
+    if (!audio.paused) {
+        console.log('Pause audio.');
+        audio.pause();
+    } else {
+        console.log('Play audio.');
+        audio.play();
+    }
+}
+
+
+// Function called by the Draw button
+// It shows the image of the joke
+async function getImage() {
+    console.log("Get image");
+    let joke = document.getElementById("joke-full");
+    let image = document.getElementById("joke-image");
+    console.log("Image src: " + image.src);
+    console.log("Joke: " + joke.innerText)
+
+    if(joke && image.src === "http://localhost:5000/") {
+        let image_url = await drawJoke(joke.innerText);
+        image.src = image_url;
+        console.log("Image url: " + image_url);
+    }
+    toggleElementById("image-explanation");
 }
 
 async function getJoke() {

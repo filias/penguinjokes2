@@ -19,26 +19,35 @@ def index():
     # Laugh
     joke_id, question, answer = get_joke(use_db=use_db)
     joke = f"{question} {answer}"
+    context["joke"] = joke
     context["question"] = question
     context["answer"] = answer
     context["joke_id"] = joke_id
     context["api_url"] = os.getenv("API_URL")
 
     # Explain
-    explanation = explain_joke(joke, joke_id=joke_id)
-    context["explanation"] = (
-        explanation if explanation else "Sorry, I don't know the answer."
-    )
-
-    # Read
-    audio_path = read_joke(joke)
-    context["audio_path"] = audio_path
-
-    # Draw
-    image_url = draw_joke(joke, joke_id=joke_id)
-    context["image_url"] = image_url
+    # explanation = explain_joke(joke, joke_id=joke_id)
+    # context["explanation"] = (
+    #     explanation if explanation else "Sorry, I don't know the answer."
+    # )
+    #
+    # # Read
+    # audio_path = read_joke(joke)
+    # context["audio_path"] = audio_path
+    #
+    # # Draw
+    # image_url = draw_joke(joke, joke_id=joke_id)
+    # context["image_url"] = image_url
 
     return render_template("index.html", **context)
+
+
+@app.route("/laugh")
+def laugh():
+    joke_id, question, answer = get_joke(use_db=use_db)
+    joke = f"{question} {answer}"
+    print(f"Laugh: {joke}")
+    return {"joke": joke}, 200
 
 
 @app.route("/explain")
