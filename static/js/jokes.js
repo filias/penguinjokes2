@@ -205,19 +205,22 @@ async function getExplanation() {
 async function getAudio() {
     console.log("Get audio");
     let joke = document.getElementById("joke-full");
+    let audio_element = document.getElementById("joke-audio");
+    console.log("Audio src: " + audio_element.src);
 
-    if(joke) {
-        audio_src = await readJoke(joke.innerText);
+    if(joke && audio_element.src === "") {
+        let audio_src = await readJoke(joke.innerText);
         console.log("Audio source: " + audio_src);
-        document.getElementById("joke-audio").src = audio_src;
+        audio_element.src = audio_src;
     }
-    audio = document.getElementById("joke-audio")
-    if (!audio.paused) {
+
+    // Play/Stop audio
+    if (!audio_element.paused) {
         console.log('Pause audio.');
-        audio.pause();
+        audio_element.pause();
     } else {
         console.log('Play audio.');
-        audio.play();
+        audio_element.play();
     }
 }
 
