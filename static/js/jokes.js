@@ -143,7 +143,7 @@ async function countJokes2() {
     jokesCount++;
     localStorage.setItem("jokesCount", jokesCount);
 
-    if (jokesCount < 3) {
+    if (jokesCount <= 3) {
         showJoke();
         hideElement("supertab-button");
         showElement("joke-button");
