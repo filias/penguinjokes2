@@ -114,7 +114,7 @@ async function countJokes() {
 
     // Count
     console.log("Joke counter: " + jokeCounter)
-    if (jokeCounter < 5) {
+    if (jokeCounter < 3) {
         showJoke();
         hideElement("supertab-button");
         showElement("joke-button");
@@ -139,7 +139,7 @@ async function countJokes() {
 async function countJokes2() {
     // Decide what to do with the counter
     console.log("Jokes count: " + jokesCount)
-    if (jokesCount < 5) {
+    if (jokesCount < 3) {
         showJoke();
         hideElement("supertab-button");
         showElement("joke-button");
@@ -173,15 +173,12 @@ async function countJokes2() {
     hideExplanation();
     hideImage();
 
-    // showLoadingScreen();
-
     // Get new joke
     let joke = await getJoke2();
     document.getElementById("joke-full").innerText = joke;
     let [question, answer] = await splitJoke(joke);
     swapJoke(question, answer);
-
-    // hideLoadingScreen();
+    enableButton("joke-button");
 }
 
 
