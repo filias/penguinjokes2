@@ -140,11 +140,7 @@ async function countJokes2() {
     // Decide what to do with the counter
     let jokesCount = localStorage.getItem("jokesCount");
     console.log("Jokes count: " + jokesCount);
-    if(jokesCount === null) {
-        jokesCount = 1;
-    } else {
-        jokesCount++;
-    }
+    jokesCount++;
     localStorage.setItem("jokesCount", jokesCount);
 
     if (jokesCount < 3) {

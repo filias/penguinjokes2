@@ -5,6 +5,31 @@
     class="bg-[url('/static/img/penguin-background.webp')] bg-cover w-screen h-screen flex flex-col items-center justify-center gap-4">
 
     <script>
+        window.addEventListener('load', function() {
+        console.log('Everything is fully loaded!');
+        let jokesCount = localStorage.getItem("jokesCount");
+        console.log("Jokes count: " + jokesCount);
+        if(jokesCount === null) {
+            jokesCount = 1;
+            showJoke();
+            hideElement("supertab-button");
+            showElement("joke-button");
+            showElement("explanation-button");
+            showElement("draw-button");
+            showElement("read-button");
+        }  else if(jokesCount > 3) {
+            jokesCount++;
+            hideJoke();
+            showElement("supertab-button");
+            hideElement("joke-button");
+            hideElement("explanation-button");
+            hideElement("draw-button");
+            hideElement("read-button");
+        }
+        localStorage.setItem("jokesCount", jokesCount);
+        console.log("Jokes count: " + jokesCount);
+        });
+
         async function getJoke2() {
             console.log("Get joke");
             var url = "{{ api_url }}" + "/laugh";
