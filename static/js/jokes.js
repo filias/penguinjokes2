@@ -206,9 +206,10 @@ async function getAudio() {
     console.log("Get audio");
     let joke = document.getElementById("joke-full");
     let audio_element = document.getElementById("joke-audio");
+    console.log(audio_element);
     console.log("Audio src: " + audio_element.src);
 
-    if(joke && (audio_element.src.includes("penguin") || audio_element.src.includes("localhost"))) {
+    if(joke && (audio_element.src.includes("penguin") || audio_element.src.includes("localhost") || audio_element.src === "")) {
         let audio_src = await readJoke(joke.innerText);
         console.log("Audio source: " + audio_src);
         audio_element.src = audio_src;
