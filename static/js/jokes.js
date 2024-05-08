@@ -178,7 +178,6 @@ async function countJokes2() {
     document.getElementById("joke-full").innerText = joke;
     let [question, answer] = await splitJoke(joke);
     swapJoke(question, answer);
-    enableButton("joke-button");
 }
 
 
