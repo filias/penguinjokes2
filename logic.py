@@ -47,13 +47,15 @@ def explain_joke(joke: str, joke_id: str = None) -> str:
             return joke.explanation
 
     # There is no joke_id or no explanation in the db, we get it from the openai api
-    response = openai_client.completions.create(
-        model="gpt-3.5-turbo-instruct",
-        prompt=f"Explain the joke: {joke}",
-        max_tokens=128,
+    response = openai_client.chat.completions.create(
+        model="gpt-4o",
+        messages=[
+            {"role": "user", "content": f"Explain the joke: {joke}"},
+        ]
     )
+
     # Get the text from the response and strip it
-    explanation = response.choices[0].text
+    explanation = response.choices[0].message.content
     explanation = explanation.strip()
     return explanation
 
