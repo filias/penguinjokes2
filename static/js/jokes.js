@@ -1,7 +1,3 @@
-let jokeCounter = 0;  // For initial logic
-//let jokesCount = 0;  // For logic 2
-//localStorage.setItem("jokesCount", jokesCount);
-
 // Element behavior
 function hideElement(name) {
     console.log("Hide " + name + " element");
@@ -137,28 +133,11 @@ async function countJokes() {
 // Function called by the Laugh button
 // It counts jokes, clears elements and fetches a new joke
 async function countJokes2() {
-    // Decide what to do with the counter
-    let jokesCount = localStorage.getItem("jokesCount");
-    console.log("Jokes count: " + jokesCount);
-    jokesCount++;
-    localStorage.setItem("jokesCount", jokesCount);
-
-    if (jokesCount <= 3) {
-        showJoke();
-        hideElement("supertab-button");
-        showElement("joke-button");
-        showElement("explanation-button");
-        showElement("draw-button");
-        showElement("read-button");
-    } else {
-        hideJoke();
-        showElement("supertab-button");
-        hideElement("joke-button");
-        hideElement("explanation-button");
-        hideElement("draw-button");
-        hideElement("read-button");
-    }
-    console.log("Jokes count: " + jokesCount);
+    showJoke();
+    showElement("joke-button");
+    showElement("explanation-button");
+    showElement("draw-button");
+    showElement("read-button");
 
     // Clear all current joke elements
     clearElement("joke-full");
