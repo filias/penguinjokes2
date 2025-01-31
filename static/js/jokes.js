@@ -81,56 +81,6 @@ function hideLoadingScreen() {
 }
 
 // Function called by the Laugh button
-// It counts jokes and fetches all additional things: audio, image, explanation
-async function countJokes() {
-    hideJoke()
-    hideExplanation();
-    hideImage();
-
-    // Laugh
-    let joke = await getJoke();
-    let [question, answer] = await splitJoke(joke);
-
-    // Explain
-    showLoadingScreen();
-    let explanation = await explainJoke(joke);
-    document.getElementById("explanation").innerText = explanation;
-
-    // Read
-    let audio_path = await readJoke(joke);
-    document.getElementById("joke-audio").src = audio_path;
-
-    // Draw
-    let image_url = await drawJoke(joke);
-    document.getElementById("joke-image").src = image_url;
-
-    // Swap joke
-    swapJoke(question, answer);
-    hideLoadingScreen();
-
-    // Count
-    console.log("Joke counter: " + jokeCounter)
-    if (jokeCounter < 3) {
-        showJoke();
-        hideElement("supertab-button");
-        showElement("joke-button");
-        showElement("explanation-button");
-        showElement("draw-button");
-        showElement("read-button");
-        jokeCounter++;
-    } else {
-        hideJoke();
-        showElement("supertab-button");
-        hideElement("joke-button");
-        hideElement("explanation-button");
-        hideElement("draw-button");
-        hideElement("read-button")
-    }
-    console.log("Joke counter: " + jokeCounter);
-}
-
-
-// Function called by the Laugh button
 // It counts jokes, clears elements and fetches a new joke
 async function countJokes2() {
     showJoke();
