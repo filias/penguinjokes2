@@ -82,5 +82,10 @@ def draw():
     return {"image_url": str(image_url)}, 200
 
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+
 if __name__ == "__main__":
     app.run(use_reloader=True, debug=True)
