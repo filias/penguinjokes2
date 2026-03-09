@@ -1,7 +1,7 @@
 import os
 from urllib.parse import unquote
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_from_directory
 from dotenv import load_dotenv
 
 from logic import explain_joke, get_joke, read_joke, draw_joke
@@ -80,6 +80,11 @@ def draw():
     image_url = draw_joke(joke, joke_id=joke_id)
     print(f"Image url: {image_url}")
     return {"image_url": str(image_url)}, 200
+
+
+@app.route("/robots.txt")
+def robots():
+    return send_from_directory(app.static_folder, "robots.txt")
 
 
 @app.route("/about")
